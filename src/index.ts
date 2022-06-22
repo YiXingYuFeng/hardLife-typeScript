@@ -1,1 +1,1 @@
-import './expample/symbol'
+import './expample/interface'
