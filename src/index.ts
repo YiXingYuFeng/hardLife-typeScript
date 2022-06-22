@@ -1,1 +1,1 @@
-import './expample/interface'
+import './expample/function'
