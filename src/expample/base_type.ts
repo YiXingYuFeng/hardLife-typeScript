@@ -65,3 +65,8 @@ let getLength = (target:string|number):number => {
     }
 }
 getLength('a')
+/**
+ * 类型断言
+ * <string> target
+ * (target as number|string)
+ */
