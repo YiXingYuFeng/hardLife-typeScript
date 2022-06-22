@@ -32,3 +32,18 @@ const addFunctions = (x:number, y:number = 32):number => {
 addFunctions(1)
 
 // 获取参数列表
+// const handleData = (arg1:number, ...args: number[]) => {
+//     return arg1
+// }
+// 函数重载
+function handelData (x:string) :string []
+function handelData (x:number):number[]
+function handelData(x:object):object
+function handelData(x:any):any{
+    if(typeof x  === 'string')  return 'string'
+    else if (typeof x  === 'number')  return 'number'
+    else if (typeof x  === 'object')  return 'object'
+    else  return 'any'
+}
+
+console.info(handelData('a'))
