@@ -1,1 +1,1 @@
-import './expample/function'
+import './expample/generics'
