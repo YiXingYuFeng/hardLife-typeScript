@@ -1,1 +1,1 @@
-import './expample/generics'
+import './expample/es6-class_advanced'
