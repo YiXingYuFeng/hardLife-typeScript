@@ -1,16 +1,16 @@
 const getArray = <T>(value: T, times: number = 5): T[] =>{
     return new Array(times).fill(value)
 }
-console.info(getArray<number>(1, 1))
+// console.info(getArray<number>(1, 1))
 
 // 两个泛型变量的使用
 
-const getArrays = <T, U>(params1: T, params2: U, times: number = 5): Array<[T, U]> => {
+const getArrays = <T, U>(params1: T, params2: U, times: number = 5): [T, U][] => {
         return new Array(times).fill([params1, params2])
 }
 getArrays(1,'2', 3).map(item => {
-    console.info(item[0])
-    console.info(item[1].length)
+    // console.info(item[0])
+    // console.info(item[1].length)
 })
 
 // 泛型在类型定义中使用
@@ -22,9 +22,7 @@ getArrayÁ = (arg:any,times:number)=> {
 }
 // type GetArray = <T>(args: T, times: number)=> T{}
 
-interface GetArray {
-    <T>(args: T, times:number): T[]
-}
+type GetArray = <T>(args: T, times:number) => T[]
 
 // 泛型变量的继承
 interface LengthType {

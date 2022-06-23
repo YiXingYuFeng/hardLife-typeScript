@@ -1,1 +1,1 @@
-import './expample/es6-class_advanced'
+import './expample/class'
