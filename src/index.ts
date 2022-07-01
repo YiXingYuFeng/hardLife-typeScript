@@ -1,1 +1,1 @@
-import './expample/class'
+import './expample/advanced_type_1'

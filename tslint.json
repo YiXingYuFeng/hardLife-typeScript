@@ -8,7 +8,8 @@
         "no-console":false, // 不允许使用console对象
         "no-empty":true,// 函数体不允许空
         "no-empty-interface": false, // 是否允许接口为空
-        "max-classes-per-file": [true, 20] //  每个文件中可定义类的个数
+        "max-classes-per-file": [true, 20], //  每个文件中可定义类的个数
+        "max-statements": [0, 10] //函数内最多有几个声明
     },
     "rulesDirectory": []
 }
