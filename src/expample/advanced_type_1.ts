@@ -95,5 +95,183 @@ console.info(padder instanceof  StringPadder)
 
 /**
  * 类型别名
- *
+ *  会给一个类型起一个新名字
+ *  可作用于原始值、联合类型、元祖以及其他任何需手写的类型
  */
+type Address = string
+type AddressResolver = () => string
+type AddressOrResolver = Address | AddressResolver
+function getAddress(n:AddressOrResolver) {
+    if(typeof n === "string")  return 'string'
+    else return n()
+}
+
+
+type Container<T> = {value: T}
+type Tree<T> = {
+    value: T,
+    left: Tree<T>
+}
+type LinkedList<T> = T & { next: LinkedList<T> };
+
+interface Person {
+    name: string;
+}
+// todo 声明后异常报错
+let jm: LinkedList<Person>;
+// let s1 = jm.name;
+// var s = people.next.name;
+// var s = people.next.next.name;
+// var s = people.next.next.next.name;
+// console.info(s1)
+type Alias = { num: number }
+interface Interface {
+    num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+
+/**
+ * 字面量类型
+ * 允许制定字符串必须的固定值
+ */
+type Easing = 'easy-in' | 'easy-out' | 'easy in out'
+
+function getStringFunc(arg: Easing) {
+    return arg
+}
+getStringFunc('easy-in')
+
+// 用于函数重载
+// function createElement(tagName: 'img'): HtmlImageElement;
+// function createElement(tagName: 'input'):HtmlInputElement;
+function createElement(tagName:string):string{
+    return '<div></div>'
+}
+createElement('img')
+/**
+ * 数字字面量类型
+ */
+type MaxSize = 28
+interface ManJ {
+    sex: MaxSize
+}
+let testJ : ManJ = {
+    sex: 28
+}
+
+/**
+ * 可辨识联合
+ * * 具有普通单例类型属性
+ * * 一个类型别面包含那些类型的联合
+ */
+interface Square{
+    // @ts-ignore
+    kind: "squares",
+    size: number
+}
+interface Rectangle {
+    kind: 'rectangle',
+    width: number,
+    height: number
+}
+interface Circle {
+    kind: 'circle',
+    size: number,
+    radius: number
+}
+// kind 可辨识的特征/标签
+type Shape = Square | Rectangle | Circle
+
+// function area(s:Shape) {
+//     switch (s.kind){
+//         case "circle":
+//             return 'circle';
+//             break;
+//         case "rectangle":
+//             return 'rectangle';
+//             break;
+//         case "squares":
+//             return 'square';
+//             break;
+//     }
+// }
+
+/**
+ * 完整性检查
+ * * 开启 strictNullChecks 配置 但其对旧代码支持不好
+ * * 使用never
+ */
+function assertNever(x:never):never{
+    throw new Error('Unexpected object:' + x)
+}
+
+// function area1(s:Shape) {
+//     switch (s.kind){
+//         case "circle":
+//             return 'circle';
+//             break;
+//         case "rectangle":
+//             return 'rectangle';
+//             break;
+//         default: return assertNever(s)
+//     }
+// }
+
+/**
+ * 多态 this 类型
+ * 表示的是某个包含类或接口的子类型
+ */
+class BasicCalculator{
+    public constructor(protected val:number = 0) {}
+    public currentValue():number{
+        return this.val
+    }
+    public add(operand:number):this {
+        this.val += operand
+        return this
+    }
+    public multiply(operand:number) :this {
+        this.val *= operand
+        return this
+    }
+}
+let v = new BasicCalculator(2)
+console.info(v.add(8))
+console.info(v.multiply(8))
+console.info(v.currentValue())
+
+// 由于之前的 BasicCalculator 使用了this类型，新的类可以直接使用之前的方法
+class ScientificCalculator extends BasicCalculator {
+    public constructor(val:number = 0) {
+        super(val);
+    }
+    public sin() {
+        this.val = Math.sin(this.val)
+        return this
+    }
+}
+let lol = new ScientificCalculator(10)
+console.info(lol.currentValue())
+console.info(lol.multiply(2))
+/**
+ * 索引类型
+ * * 索引类型查询操作符 keyof T
+ */
+function pluck<T, K extends keyof T>(o: T, name:K []): T[K][] {
+    return name.map(n => o[n])
+}
+interface Person {
+    name:string,
+    age: number
+}
+let ptp:Person ={
+    name:'ptp',
+    age: 40
+}
+let string1:string[] = pluck(ptp, ['name'])
+console.info(string1)
+/**
+ * 映射类型
+ */
+
